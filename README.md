@@ -1,68 +1,67 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Deviget Reddit Exercise
 
-## Available Scripts
+- [Deviget Reddit Exercise](#deviget-reddit-exercise)
+  - [Install and run](#install-and-run)
+  - [What I choose and why](#what-i-choose-and-why)
+    - [Main libraries](#main-libraries)
+      - [Material-ui](#material-ui)
+      - [Redux Toolkit](#redux-toolkit)
+    - [Helper libraries](#helper-libraries)
+    - [Deployed](#deployed)
+  - [Notes:](#notes)
+    - [About the commits](#about-the-commits)
+    - [About the swipe menu](#about-the-swipe-menu)
 
-In the project directory, you can run:
+## Install and run
 
-### `yarn start`
+To run the project in your local environment you will need to ahve installed:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [NodeJS](https://nodejs.org/es/)
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Then
 
-### `yarn test`
+```bash
+git clone https://github.com/ratonjuancarlos/reddit-app/tree/deviget
+npm i
+npm start
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Open [`http://localhost:3000/`](http://localhost:3000/) in your browser
 
-### `yarn build`
+Also you can see the demo in [here](https://ratonjuancarlos.github.io/reddit-app/)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## What I choose and why
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Main libraries
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### [Material-ui](https://material-ui.com/)
 
-### `yarn eject`
+I use material UI for the simplicity of importing components with styles based on material design
+In addition, it provides animations (Transitions) as well as tools to facilitate the creation of responsive design
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### [Redux Toolkit](https://redux-toolkit.js.org/)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+I chose it for the ease it has to define all the elements of redux in a single file
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Helper libraries
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- lodash
+- dayjs
+- axios
 
-## Learn More
+If it had been required or had the time, I would have implemented `cypress` to perform tests
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Deployed
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Deployed on github pages
 
-### Code Splitting
+## Notes:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### About the commits
 
-### Analyzing the Bundle Size
+Due to the complexity and time to finish the exercise, sometimes I found myself switching from one task to another. That makes imposible to create commits for each step that can be considerer _atomics_.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### About the swipe menu
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Material-ui provides a component to implement a Swipe sidebar, but I found that the documentation was outdated and incomplete, that make me spent a lot of time trying to implement it properly, so I choose to just let a responsive sidebar.

@@ -1,8 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import appReducer from "./appSlice";
+import { saveState } from "./localStorage";
 
-export default configureStore({
+const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    app: appReducer,
   },
 });
+
+store.subscribe(() => saveState(store.getState().app));
+
+export default store;

@@ -1,72 +1,105 @@
-import React from 'react';
-import { ReactQueryDevtools } from 'react-query-devtools'
-import { useQuery,   QueryCache, } from 'react-query'
-import './App.css';
+import React, { useState, useEffect } from "react";
+import clsx from "clsx";
+import makeStyles from "./styles";
+import { cleanState } from "app/localStorage";
+import { useDispatch } from "react-redux";
+import Drawer from "@material-ui/core/Drawer";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import AllPosts from "./features/allPosts/AllPosts.js";
+import { dismissAll } from "./app/appSlice";
+import Button from "@material-ui/core/Button";
+import Main from "./features/main/Main.js";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
+const useStyles = makeStyles();
 
-function App() {
-  const { isLoading, error, data }  = useQuery("repoData", () =>
-  fetch(
-    "https://jsonplaceholder.typicode.com/posts"
-  ).then((res) => res.json())
-);
+export default function PersistentDrawerLeft() {
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const matches = useMediaQuery("(min-width:1280px)");
+  const landscape = useMediaQuery("(orientation: landscape)");
+  const dispatch = useDispatch();
 
-console.log(data)
+  useEffect(() => {
+    setOpen(landscape || matches);
+  }, [landscape, matches]);
+
+  const onDismissAll = () => {
+    dispatch(dismissAll());
+  };
+
+  const onCleanState = () => {
+    cleanState();
+    window.location.reload();
+  };
+
   return (
-    <div className="App">
-      <ReactQueryDevtools initialIsOpen />
-      <ul>
-         {data && data.map(todo => (
-           <li key={todo.id}>{todo.title}</li>
-         ))}
-       </ul>
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={() => setOpen(true)}
+            edge="start"
+            className={clsx(classes.menuButton, open && classes.hide)}
           >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header> */}
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap className={classes.title}>
+            Deviget
+          </Typography>
+          <Button color="secondary" onClick={onCleanState} variant="contained">
+            Clean App state-preservation
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <Typography component="h5" variant="h5">
+            Reddit Posts
+          </Typography>
+          <IconButton onClick={() => setOpen(false)}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </div>
+        <Divider />
+        <AllPosts />
+        <div className={classes.dismissAll}>
+          <Button color="secondary" onClick={onDismissAll}>
+            Dismiss All
+          </Button>
+        </div>
+      </Drawer>
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open,
+        })}
+      >
+        <div className={classes.drawerHeader} />
+        <Main />
+      </main>
     </div>
   );
 }
-
-export default App;
