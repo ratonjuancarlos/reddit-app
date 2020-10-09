@@ -1,12 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { ReactQueryDevtools } from 'react-query-devtools'
+import { useQuery,   QueryCache, } from 'react-query'
 import './App.css';
 
+
 function App() {
+  const { isLoading, error, data }  = useQuery("repoData", () =>
+  fetch(
+    "https://jsonplaceholder.typicode.com/posts"
+  ).then((res) => res.json())
+);
+
+console.log(data)
   return (
     <div className="App">
-      <header className="App-header">
+      <ReactQueryDevtools initialIsOpen />
+      <ul>
+         {data && data.map(todo => (
+           <li key={todo.id}>{todo.title}</li>
+         ))}
+       </ul>
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
@@ -50,7 +64,7 @@ function App() {
             React Redux
           </a>
         </span>
-      </header>
+      </header> */}
     </div>
   );
 }
